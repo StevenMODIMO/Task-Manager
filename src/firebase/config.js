@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-import 'firebase/firestore'
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -9,9 +8,10 @@ const firebaseConfig = {
   storageBucket: "react-firebase-18a3c.appspot.com",
   messagingSenderId: "664523658595",
   appId: "1:664523658595:web:f262bff473600a0c39ef56",
-  measurementId: "G-4N9993F9HY"
+  measurementId: "G-4N9993F9HY",
 };
 
-
 const app = initializeApp(firebaseConfig);
-const db = ''
+const firestore = getFirestore(app);
+
+export { app, firestore };
