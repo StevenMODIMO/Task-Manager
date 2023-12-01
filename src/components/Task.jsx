@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { firestore } from "../firebase/config";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   getDocs,
   onSnapshot,
@@ -11,6 +11,7 @@ import {
 import { MdDelete, MdEdit } from "react-icons/md";
 import UpdateTask from "./UpdateTask";
 import Modal from "./Modal";
+
 const Task = () => {
   const [tasks, setTasks] = useState([]);
   const [modal, setModal] = useState(false);
@@ -56,10 +57,14 @@ const Task = () => {
         )}
       </AnimatePresence>
       <section>
-        {tasks.map((task) => {
-          return (
-            <main
+        <AnimatePresence>
+          {tasks.map((task) => (
+            <motion.main
               key={task.id}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0 }}
+              transition={{ duration: 0.3 }}
               className="text-white flex justify-between gap-2 bg-gray-500/20 p-2 m-2 rounded"
             >
               <section>
@@ -82,9 +87,9 @@ const Task = () => {
                   <MdEdit />
                 </button>
               </div>
-            </main>
-          );
-        })}
+            </motion.main>
+          ))}
+        </AnimatePresence>
       </section>
     </div>
   );

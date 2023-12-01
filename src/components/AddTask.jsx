@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { MdAdd } from "react-icons/md";
 import { firestore } from "../firebase/config";
 import { setDoc, doc, collection } from "firebase/firestore";
+import { useAuth } from "../hooks/useAuth";
 
 const AddTask = () => {
   const [task, setTask] = useState("");
