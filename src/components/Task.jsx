@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { firestore } from "../firebase/config";
+import { AnimatePresence } from "framer-motion";
 import {
   getDocs,
   onSnapshot,
@@ -47,11 +48,13 @@ const Task = () => {
       <header className="bg-gray-500/10 p-2 text-lg font-bold">
         <h1>Manage Tasks</h1>
       </header>
-      {modal && (
-        <Modal setModal={setModal}>
-          <UpdateTask id={taskId}  setModal={setModal} />
-        </Modal>
-      )}
+      <AnimatePresence>
+        {modal && (
+          <Modal setModal={setModal}>
+            <UpdateTask id={taskId} setModal={setModal} />
+          </Modal>
+        )}
+      </AnimatePresence>
       <section>
         {tasks.map((task) => {
           return (
