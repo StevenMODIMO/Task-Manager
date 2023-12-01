@@ -7,10 +7,13 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import { MdDelete, MdEdit  } from "react-icons/md";
-
+import { MdDelete, MdEdit } from "react-icons/md";
+import UpdateTask from "./UpdateTask";
+import Modal from "./Modal";
 const Task = () => {
   const [tasks, setTasks] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [taskId, setTaskId] = useState("");
 
   useEffect(() => {
     const getTasks = async () => {
@@ -44,21 +47,37 @@ const Task = () => {
       <header className="bg-gray-500/10 p-2 text-lg font-bold">
         <h1>Manage Tasks</h1>
       </header>
-
+      {modal && (
+        <Modal setModal={setModal}>
+          <UpdateTask id={taskId}  setModal={setModal} />
+        </Modal>
+      )}
       <section>
         {tasks.map((task) => {
           return (
-            <main key={task.id} className="text-white flex justify-between gap-2 bg-gray-500/20 p-2 m-2 rounded">
+            <main
+              key={task.id}
+              className="text-white flex justify-between gap-2 bg-gray-500/20 p-2 m-2 rounded"
+            >
               <section>
-              <h1 className="text-white">{task.data.name}</h1>
+                <h1 className="text-white">{task.data.name}</h1>
               </section>
               <div className="flex gap-2">
-              <button onClick={() => delById(task.id)} className="text-red-500 text-xl">
-                <MdDelete />
-              </button>
-              <button className="text-yellow-500 text-xl">
-                <MdEdit  />
-              </button>
+                <button
+                  onClick={() => delById(task.id)}
+                  className="text-red-500 text-xl"
+                >
+                  <MdDelete />
+                </button>
+                <button
+                  onClick={() => {
+                    setTaskId(task.id);
+                    setModal(true);
+                  }}
+                  className="text-yellow-500 text-xl"
+                >
+                  <MdEdit />
+                </button>
               </div>
             </main>
           );
