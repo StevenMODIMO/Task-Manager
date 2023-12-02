@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { useSignUp } from "../hooks/useSignUp";
 
 const SignUpForm = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { signup } = useSignUp();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await signup(email, password);
+  };
+
   return (
     <motion.div
       initial={{ y: -100 }}
@@ -14,12 +26,19 @@ const SignUpForm = () => {
       <header className="text-center p-3 font-bold text-xl text-yellow-500">
         <h1>Get Started Now</h1>
       </header>
-      <form className="flex flex-col items-center gap-5 mt-12">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-center gap-5 mt-12"
+      >
         <input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="p-2 border outline-none w-5/6 rounded text-black"
           placeholder="example@email.com"
         />
         <input
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           type="password"
           className="p-2 border outline-none w-5/6 rounded text-black"
           placeholder="strong password"
