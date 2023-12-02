@@ -16,8 +16,6 @@ export default function App() {
     setShowSignUp(false)
   }
 
-  const { auth} = useAuth()
-
   return (
     <main className="h-screen w-screen bg-black opacity-90">
       <Navbar setShowLogin={setShowLogin} setShowSignUp={setShowSignUp} />
