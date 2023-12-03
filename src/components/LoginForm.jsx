@@ -14,6 +14,8 @@ const LoginForm = () => {
     e.preventDefault();
 
     await login(email, password);
+    setEmail("");
+    setPassword("");
   };
   return (
     <motion.div
@@ -26,7 +28,7 @@ const LoginForm = () => {
         <h1>Login Now</h1>
       </header>
       <form
-        onFocus={() => null}
+        onFocus={() => setError(null)}
         onSubmit={handleSubmit}
         className="flex flex-col items-center gap-5 mt-12"
       >

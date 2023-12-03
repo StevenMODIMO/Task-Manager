@@ -6,21 +6,27 @@ import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import Backdrop from "./components/Backdrop";
 import { AnimatePresence } from "framer-motion";
-import { useAuth } from './hooks/useAuth'
+import { useAuth } from "./hooks/useAuth";
 
 export default function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
   const close = () => {
-    setShowLogin(false)
-    setShowSignUp(false)
-  }
+    setShowLogin(false);
+    setShowSignUp(false);
+  };
+
+  const user = useAuth();
 
   return (
     <main className="h-screen w-screen bg-black opacity-90">
       <Navbar setShowLogin={setShowLogin} setShowSignUp={setShowSignUp} />
-      <AddTask />
-      <Task />
+      {user && (
+        <>
+          <AddTask />
+          <Task />
+        </>
+      )}
       <AnimatePresence>
         {showLogin && (
           <Backdrop close={close}>
@@ -30,7 +36,7 @@ export default function App() {
       </AnimatePresence>
       <AnimatePresence>
         {showSignUp && (
-          <Backdrop  close={close}>
+          <Backdrop close={close}>
             <SignUpForm />
           </Backdrop>
         )}

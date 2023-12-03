@@ -8,12 +8,14 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { signup } = useSignUp();
+  const { signup, error, setError } = useSignUp();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     await signup(email, password);
+    setEmail("");
+    setPassword("");
   };
 
   return (
@@ -27,6 +29,7 @@ const SignUpForm = () => {
         <h1>Get Started Now</h1>
       </header>
       <form
+        onFocus={() => setError(null)}
         onSubmit={handleSubmit}
         className="flex flex-col items-center gap-5 mt-12"
       >
@@ -44,6 +47,7 @@ const SignUpForm = () => {
           placeholder="strong password"
         />
         <button className="rounded bg-yellow-500 p-2">Create Account</button>
+        {error && <div>{error}</div>}
       </form>
       <div className="text-center m-8">OR</div>
       <section className="flex flex-col items-center text-yellow-500">

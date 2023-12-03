@@ -7,14 +7,26 @@ export const useLogin = () => {
   const [error, setError] = useState(null);
 
   const login = async (email, password) => {
-    if (!email || !password) {
-      setError("All fields must be filled.");
-    }
     await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
       })
-      .catch((error) => console.log(error.error));
+      .catch((error) => {
+        /**
+         * Firebase: Error (auth/invalid-email).
+         * Firebase: Error (auth/invalid-credential).
+         */
+        switch (error.message) {
+          case "Firebase: Error (auth/invalid-credential).":
+            setError("invalid-email-or-password");
+            break;
+          case "Firebase: Error (auth/invalid-email).":
+            setError("invalid-email");
+            break;
+          default:
+            return error.message;
+        }
+      });
   };
 
   return { login, error, setError };
