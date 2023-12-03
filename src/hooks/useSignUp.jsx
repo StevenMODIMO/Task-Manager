@@ -8,7 +8,7 @@ export const useSignUp = () => {
   const signup = async (email, password) => {
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log(userCredential);
+        return userCredential
       })
       .catch((error) => {
         switch (error.message) {

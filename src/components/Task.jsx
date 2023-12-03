@@ -45,7 +45,7 @@ const Task = () => {
   };
 
   return (
-    <div className="text-white w-3/6 h-3/6 bg-gray-700/10 mx-auto rounded mt-6">
+    <div className="hidden">
       <header className="bg-gray-500/10 p-2 text-lg font-bold">
         <h1>Manage Tasks</h1>
       </header>

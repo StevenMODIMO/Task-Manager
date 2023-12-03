@@ -28,7 +28,7 @@ const AddTask = () => {
   const isButtonDisabled = task.trim() === "";
 
   return (
-    <div className="text-white w-3/6 mx-auto mt-12 bg-gray-500/10 flex justify-between">
+    <div className="hidden">
       <header className="p-2 mt-1 text-2xl font-bold">
         <h1>New Task</h1>
       </header>

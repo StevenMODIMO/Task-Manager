@@ -7,39 +7,39 @@ import { getAuth, signOut } from "firebase/auth";
 const Navbar = ({ setShowLogin, setShowSignUp }) => {
   const user = useAuth();
   const auth = getAuth();
-  console.log(user);
   const logout = async () => await signOut(auth);
   return (
     <div className="bg-gray-700/10 p-4 text-white flex justify-between">
-      <header className="text-2xl flex gap-2">
-        <img src="/1611674.png" alt="logo" className="w-10" />
+      <header className="flex text-xs gap-1 sm:text-lg sm:gap-4">
+        <img src="/1611674.png" alt="logo" className="w-4 h-4 sm:h-7 sm:w-7"  />
         <h1>Task Manager</h1>
-        <img src="/react.svg" alt="logo" className="w-5" />
+        <img src="/react.svg" alt="logo" className="w-4 h-4 sm:h-5 sm:w-5 sm:mt-1" />
       </header>
-      <ul className="flex gap-8 mr-6 p-1 font-bold cursor-pointer">
+      <>
         {!user ? (
-          <>
+          <ul className="text-sm flex gap-3 sm:text-lg">
             <li className="flex gap-1" onClick={() => setShowSignUp(true)}>
               <h1>Sign Up</h1>
-              <FaRegUserCircle className="text-xl text-yellow-500 font-bold mt-1" />
+              <FaRegUserCircle className="text-sm sm:text-lg md:text-xl text-yellow-500 font-bold mt-1" />
             </li>
             <li className="flex gap-1" onClick={() => setShowLogin(true)}>
               <h1>Login</h1>
-              <HiLogin className="text-xl text-blue-500 font-bold mt-1" />
+              <HiLogin className="text-sm sm:text-lg md:text-xl text-blue-500 font-bold mt-1" />
             </li>
-          </>
+          </ul>
         ) : (
-          <>
+          <ul  className="text-xs flex flex-col gap-3 sm:flex-row sm:text-lg">
             <li className="flex gap-1" onClick={logout}>
               <h1>Logout</h1>
-              <HiLogout className="text-xl text-red-500 font-bold mt-1" />
+              <HiLogout className="text-lg sm:text-xl sm:mt-1 text-red-500 font-bold md:text-xl" />
             </li>
-            <li>
+            <li className="flex gap-1">
+              <FaRegUserCircle className="text-sm sm:text-lg sm:mt-1 md:text-xl" />
               <h1>{user.email}</h1>
             </li>
-          </>
+          </ul>
         )}
-      </ul>
+      </>
     </div>
   );
 };

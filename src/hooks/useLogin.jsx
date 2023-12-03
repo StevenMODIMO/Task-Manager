@@ -9,7 +9,7 @@ export const useLogin = () => {
   const login = async (email, password) => {
     await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log(userCredential);
+        return userCredential
       })
       .catch((error) => {
         /**
