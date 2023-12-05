@@ -10,7 +10,6 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
 
   const { login, error, setError } = useLogin();
-  const { googelSignIn } = useGoogle();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,9 +19,9 @@ const LoginForm = () => {
     setPassword("");
   };
 
-  const handleGoogle = async (e) => {
-    await googelSignIn();
-  };
+  // const handleGoogle = async (e) => {
+  //   await googelSignIn();
+  // };
   return (
     <motion.div
       initial={{ y: -100 }}
@@ -67,7 +66,7 @@ const LoginForm = () => {
       <section className="flex flex-col items-center text-blue-500">
         <div
           className="flex gap-2 text-xl p-2 bg-gray-500/10 rounded m-2"
-          onClick={handleGoogle}
+          // onClick={handleGoogle}
         >
           <FcGoogle className="mt-1" />
           <h1>Continue with Google</h1>

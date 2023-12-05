@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { useSignUp } from "../hooks/useSignUp";
+import { useGoogle } from "../hooks/useGoogle";
 
 const SignUpForm = () => {
   const [email, setEmail] = useState("");

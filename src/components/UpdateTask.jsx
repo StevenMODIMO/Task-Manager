@@ -3,14 +3,14 @@ import { firestore } from "../firebase/config";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 
 const UpdateTask = ({ id, setModal }) => {
-  const [task, setTask] = useState();
+  const [task, setTask] = useState('');
 
   useEffect(() => {
     const fetchTask = async () => {
-      const taskDoc = await getDoc(doc(firestore, "tasks", id));
+      const taskDoc = await getDoc(doc(firestore, "Tasks", id));
 
       if (taskDoc.exists()) {
-        setTask(taskDoc.data().name);
+        setTask(taskDoc.data().task);
       } else {
         console.log("Doc Not Found");
       }
@@ -21,11 +21,11 @@ const UpdateTask = ({ id, setModal }) => {
   const updateTask = async (e) => {
     e.preventDefault();
 
-    const taskRef = doc(firestore, "tasks", id);
+    const taskRef = doc(firestore, "Tasks", id);
 
     try {
       await updateDoc(taskRef, {
-        name: task,
+        task: task,
       });
       setModal(false);
     } catch (error) {
@@ -36,18 +36,18 @@ const UpdateTask = ({ id, setModal }) => {
   return (
     <div>
       <header>
-        <h1 className="text-start p-2 font-bold">
-          Now editing taks with id: {id}
+        <h1 className="">
+          Now editing task with id: {id}
         </h1>
       </header>
-      <form onSubmit={updateTask} className="flex gap-2 p-3">
+      <form onSubmit={updateTask} className="">
         <input
-          value={task}
+          value={task || ''} // Ensure it is never undefined
           onChange={(e) => setTask(e.target.value)}
-          className="outline-none text-xl rounded p-2 bg-gray-500/30 w-96"
+          className=""
           placeholder="Task name"
         />
-        <button className="bg-yellow-500 p-2 rounded">Update Task</button>
+        <button className="">Update Task</button>
       </form>
     </div>
   );
