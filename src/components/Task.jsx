@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import UpdateTask from "./UpdateTask";
-import Modal from "./Modal";
+import SetStatus from "./SetStatus";
 import { firestore } from "../firebase/config";
 import { useAuth } from "../hooks/useAuth";
 import { AnimatePresence, motion } from "framer-motion";
+import { BiDotsVertical } from "react-icons/bi";
 import {
   getDocs,
   onSnapshot,
@@ -19,6 +20,7 @@ const Task = () => {
   const [tasks, setTasks] = useState([]);
   const [modal, setModal] = useState(false);
   const [taskId, setTaskId] = useState("");
+  const [status, setStatus] = useState(false);
   const user = useAuth();
 
   useEffect(() => {
@@ -33,6 +35,16 @@ const Task = () => {
         data: doc.data(),
       }));
       setTasks(tasksData);
+
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        const tasksData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }));
+        setTasks(tasksData);
+      });
+
+      return () => unsubscribe();
     };
 
     getTasks();
@@ -57,9 +69,13 @@ const Task = () => {
           </header>
           <AnimatePresence>
             {modal && (
-              <Modal setModal={setModal}>
-                <UpdateTask id={taskId} setModal={setModal} />
-              </Modal>
+                <UpdateTask id={taskId} />
+              
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
+            {status && (
+                <SetStatus />
             )}
           </AnimatePresence>
           <section className="mt-5">
@@ -73,7 +89,14 @@ const Task = () => {
                   transition={{ duration: 0.3 }}
                   className="text-white flex justify-between gap-2 bg-gray-500/20 p-2 m-2 rounded"
                 >
-                  <section>
+                  <section className="flex items-center gap-2">
+                    <div>
+                      {task.data.completed ? (
+                        <div className="h-4 w-4 m-2 rounded-full bg-green-500"></div>
+                      ) : (
+                        <div className="h-4 w-4 m-2 rounded-full border-2 border-green-500"></div>
+                      )}
+                    </div>
                     <h1 className="text-white">{task.data.task}</h1>
                   </section>
                   <div className="flex gap-2">
@@ -91,6 +114,9 @@ const Task = () => {
                       className="text-yellow-500 text-xl"
                     >
                       <MdEdit />
+                    </button>
+                    <button onClick={() => setStatus(true)} className="text-blue-500 text-xl">
+                      <BiDotsVertical />
                     </button>
                   </div>
                 </motion.main>

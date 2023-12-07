@@ -17,6 +17,8 @@ const AddTask = () => {
 
     const taskRef = doc(collection(firestore, "Tasks"));
     await setDoc(taskRef, {
+      completed: false,
+      created_at: new Date(),
       task: task,
       user: user.email,
     });
@@ -38,7 +40,7 @@ const AddTask = () => {
         <input
           value={task}
           onChange={(e) => setTask(e.target.value)}
-          className="outline-none text-xl rounded p-1 bg-gray-500/30"
+          className="outline-none text-white text-xl rounded p-1 bg-gray-500/30"
           placeholder="Task name"
         />
         <button
