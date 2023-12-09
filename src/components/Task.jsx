@@ -57,74 +57,64 @@ const Task = () => {
 
   return (
     <>
-      {tasks.length === 0 ? (
-        <div className="text-white text-center m-3 bg-red-400/10 rounded">
-          <h1>Oops!!</h1>
-          <h1>Seems You dont't have any tasks. Just adding</h1>
-        </div>
-      ) : (
-        <div className="bg-gray-500/20 mx-3 mt-5 p-2 h-fit">
-          <header className="text-white text-lg text-center">
-            <h1>Manage Tasks</h1>
-          </header>
+      <div className="bg-gray-500/20 mx-3 mt-5 p-2 h-fit">
+        <header className="text-white text-lg text-center">
+          <h1>Manage Tasks</h1>
+        </header>
+        <AnimatePresence>{modal && <UpdateTask id={taskId} />}</AnimatePresence>
+        <AnimatePresence>{status && <SetStatus id={taskId} />}</AnimatePresence>
+        <section className="mt-5">
           <AnimatePresence>
-            {modal && (
-                <UpdateTask id={taskId} />
-              
-            )}
-          </AnimatePresence>
-          <AnimatePresence>
-            {status && (
-                <SetStatus />
-            )}
-          </AnimatePresence>
-          <section className="mt-5">
-            <AnimatePresence>
-              {tasks.map((task) => (
-                <motion.main
-                  key={task.id}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-white flex justify-between gap-2 bg-gray-500/20 p-2 m-2 rounded"
-                >
-                  <section className="flex items-center gap-2">
-                    <div>
-                      {task.data.completed ? (
-                        <div className="h-4 w-4 m-2 rounded-full bg-green-500"></div>
-                      ) : (
-                        <div className="h-4 w-4 m-2 rounded-full border-2 border-green-500"></div>
-                      )}
-                    </div>
-                    <h1 className="text-white">{task.data.task}</h1>
-                  </section>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => deleteById(task.id)}
-                      className="text-red-500 text-xl"
-                    >
-                      <MdDelete />
-                    </button>
-                    <button
-                      onClick={() => {
-                        setTaskId(task.id);
-                        setModal(true);
-                      }}
-                      className="text-yellow-500 text-xl"
-                    >
-                      <MdEdit />
-                    </button>
-                    <button onClick={() => setStatus(true)} className="text-blue-500 text-xl">
-                      <BiDotsVertical />
-                    </button>
+            {tasks.map((task) => (
+              <motion.main
+                key={task.id}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0 }}
+                transition={{ duration: 0.3 }}
+                className="text-white flex justify-between gap-2 bg-gray-500/20 p-2 m-2 rounded"
+              >
+                <section className="flex items-center gap-2">
+                  <div>
+                    {task.data.completed ? (
+                      <div className="h-4 w-4 m-2 rounded-full bg-green-500"></div>
+                    ) : (
+                      <div className="h-4 w-4 m-2 rounded-full border-2 border-green-500"></div>
+                    )}
                   </div>
-                </motion.main>
-              ))}
-            </AnimatePresence>
-          </section>
-        </div>
-      )}
+                  <h1 className="text-white">{task.data.task}</h1>
+                </section>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => deleteById(task.id)}
+                    className="text-red-500 text-xl"
+                  >
+                    <MdDelete />
+                  </button>
+                  <button
+                    onClick={() => {
+                      setTaskId(task.id);
+                      setModal(true);
+                    }}
+                    className="text-yellow-500 text-xl"
+                  >
+                    <MdEdit />
+                  </button>
+                  <button
+                    onClick={() => {
+                      setStatus(true);
+                      setTaskId(task.id);
+                    }}
+                    className="text-blue-500 text-xl"
+                  >
+                    <BiDotsVertical />
+                  </button>
+                </div>
+              </motion.main>
+            ))}
+          </AnimatePresence>
+        </section>
+      </div>
     </>
   );
 };
