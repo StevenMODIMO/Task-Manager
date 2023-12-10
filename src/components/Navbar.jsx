@@ -9,10 +9,9 @@ const Navbar = ({ setShowLogin, setShowSignUp }) => {
   const auth = getAuth();
   const logout = async () => await signOut(auth);
   return (
-    <div className="bg-gray-700/10 p-4 text-white flex justify-between">
-      <header className="flex text-xs gap-1 sm:text-lg sm:gap-4">
+    <div>
+      <header className="flex text-xs gap-1 mt-2 sm:text-lg sm:gap-4">
         <img src="/1611674.png" alt="logo" className="w-4 h-4 sm:h-7 sm:w-7"  />
-        <h1>Task Manager</h1>
         <img src="/react.svg" alt="logo" className="w-4 h-4 sm:h-5 sm:w-5 sm:mt-1" />
       </header>
       <>
@@ -34,7 +33,6 @@ const Navbar = ({ setShowLogin, setShowSignUp }) => {
               <HiLogout className="text-lg sm:text-xl sm:mt-1 text-red-500 font-bold md:text-xl" />
             </li>
             <li className="flex gap-1">
-              <FaRegUserCircle className="text-sm sm:text-lg sm:mt-1 md:text-xl" />
               <h1>{user.email}</h1>
             </li>
           </ul>
