@@ -19,10 +19,9 @@ export default function App() {
   const user = useAuth();
 
   return (
-    <main className="h-screen w-screen bg-black p-2 opacity-90">
+    <main className="h-screen w-screen bg-black p-3 opacity-90">
       <Navbar setShowLogin={setShowLogin} setShowSignUp={setShowSignUp} />
-      {/**
-       * {user && (
+      {user && (
         <>
           <AddTask />
           <Task />
@@ -31,18 +30,17 @@ export default function App() {
       <AnimatePresence>
         {showLogin && (
           <Backdrop close={close}>
-            <LoginForm />
+            <LoginForm close={close} />
           </Backdrop>
         )}
       </AnimatePresence>
       <AnimatePresence>
         {showSignUp && (
           <Backdrop close={close}>
-            <SignUpForm />
+            <SignUpForm close={close} />
           </Backdrop>
         )}
       </AnimatePresence>
-       */}
     </main>
   );
 }

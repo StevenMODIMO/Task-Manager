@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaTimes } from "react-icons/fa";
 import { useLogin } from "../hooks/useLogin";
 import { useGoogle } from "../hooks/useGoogle";
 
-const LoginForm = () => {
+const LoginForm = ({ close }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { login, error, setError } = useLogin();
+  const { login, error, setError, status } = useLogin();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,23 +19,26 @@ const LoginForm = () => {
     setPassword("");
   };
 
-  // const handleGoogle = async (e) => {
-  //   await googelSignIn();
-  // };
   return (
     <motion.div
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       onClick={(e) => e.stopPropagation()}
-      className="bg-black text-white border-2 h-5/6 w-2/6"
+      className="mt-10 bg-gray-500/20 rounded-3xl w-[90%] h-fit sm:w-[50%] lg:w-[40%] xl:w-[30%]"
     >
+      <div
+        className="flex justify-end mt-6 mr-4 text-2xl text-white"
+        onClick={close}
+      >
+        <FaTimes />
+      </div>
       <header className="text-center text-blue-500 p-3 font-bold text-xl">
         <h1>Login Now</h1>
       </header>
       <form
         onFocus={() => setError(null)}
         onSubmit={handleSubmit}
-        className="flex flex-col items-center gap-5 mt-12"
+        className="flex flex-col items-center gap-5 mt-1"
       >
         <input
           value={email}
@@ -62,7 +65,7 @@ const LoginForm = () => {
           </motion.div>
         )}
       </form>
-      <div className="text-center m-8">OR</div>
+      <div className="text-center mt-2">OR</div>
       <section className="flex flex-col items-center text-blue-500">
         <div
           className="flex gap-2 text-xl p-2 bg-gray-500/10 rounded m-2"
