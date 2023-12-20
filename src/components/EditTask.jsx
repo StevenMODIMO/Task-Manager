@@ -1,6 +1,6 @@
 import React from 'react'
 
-const EditTask = () => {
+const EditTask = ({id}) => {
   return (
     <div>EditTask</div>
   )
